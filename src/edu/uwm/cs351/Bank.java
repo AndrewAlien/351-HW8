@@ -27,6 +27,15 @@ public class Bank {
 	//   - left
 	//   - right
 	// and at least one constructor: one taking an account.
+	private static class Node{
+		int key;
+		Node left,right;
+		public Node(int k, Node l, Node r) {
+			key = k;
+			left = l;
+			right = r;
+		}
+	}
 	
 	// TODO: data structure.  (very simple)
 	private final Random random = new Random(); // ignore in invariant -- it doesn't change)
@@ -58,7 +67,7 @@ public class Bank {
 		assert wellFormed() : "invariant broken in constructor";
 	}
 	
-	// TODO: helper method for open (optional)
+	// TODO: helper method for open (optional) ?? is this my while loop??
 	
 	/**
 	 * Open a new account with the given minimum balance (negative credit limit) and 
@@ -70,7 +79,11 @@ public class Bank {
 	 * @return new account
 	 */
 	public Account open(String owner, String prefix, Money minBalance, Money initial) {
-		return null; // TODO (And don't forget the invariant)
+		while (prefix.length() < Account.MIN_ACCOUNT_ID || this.)
+			prefix += random.nextInt(10);
+		
+		Account a = new Account(owner, prefix, minBalance, initial);
+		return a; // TODO (And don't forget the invariant)
 	}
 		
 	// TODO: Define a recursive helper method for "audit" that
