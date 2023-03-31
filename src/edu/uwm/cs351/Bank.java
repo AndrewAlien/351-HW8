@@ -69,6 +69,7 @@ public class Bank {
 		if (tree == null) return true;
 		
 		if (tree.key == null) return report("not working and pissing me off");
+
 		
 		if (tree.left != null)
 			if (tree.key.getID().compareTo(tree.left.key.getID()) >= 0) return report("fuck me :)");
@@ -76,9 +77,24 @@ public class Bank {
 		if (tree.right != null)
 			if (tree.key.getID().compareTo(tree.right.key.getID()) >= 0) return report("fuck me :)");
 		
+		
+		
+		//what the fuck am i doing someone slit my fi=ucming throat plz thx
+		
+		
 		inOrder(tree.left, null, tree.key.getID());
 		
+		System.out.println(tree.key.getID());
+		
 		inOrder(tree.right, tree.key.getID(), null);
+		
+//		inOrder(tree.left, null, null);
+//		
+//		
+//
+//		inOrder(tree.right, null, null);
+
+		
 		//if (tree.key.getID().compareTo(tree.right.key.getID()) >= 0) return false;
 		return true; // TODO
 	}
