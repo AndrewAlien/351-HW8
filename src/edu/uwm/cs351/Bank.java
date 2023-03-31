@@ -28,16 +28,32 @@ public class Bank {
 	//   - right
 	// and at least one constructor: one taking an account.
 	private static class Node{
-		int key;
+		//String key;
+		Account key;
 		Node left,right;
-		public Node(int k, Node l, Node r) {
-			key = k;
+		public Node(Account a, Node l, Node r) {
+			key = a;
 			left = l;
 			right = r;
 		}
+		public Node(Account a) {
+			key = a;
+			left = right = null;
+		}
+//		public Node(String k, Node l, Node r) {
+//			key = k;
+//			left = l;
+//			right = r;
+//		}
+//		public Node() {
+//			key = null;
+//			left = null;
+//			right = null;
+//		}
 	}
 	
 	// TODO: data structure.  (very simple)
+	Node root;
 	private final Random random = new Random(); // ignore in invariant -- it doesn't change)
 	
 	/**
@@ -50,11 +66,26 @@ public class Bank {
 	 * @return whether everything is ordered in bounds, or else one report is generated.
 	 */
 	private boolean inOrder(Node tree, String before, String after) {
+		if (tree == null) return true;
+		
+		if (tree.key == null) return report("not working and pissing me off");
+		
+		if (tree.left != null)
+			if (tree.key.getID().compareTo(tree.left.key.getID()) >= 0) return report("fuck me :)");
+		
+		if (tree.right != null)
+			if (tree.key.getID().compareTo(tree.right.key.getID()) >= 0) return report("fuck me :)");
+		
+		inOrder(tree.left, null, tree.key.getID());
+		
+		inOrder(tree.right, tree.key.getID(), null);
+		//if (tree.key.getID().compareTo(tree.right.key.getID()) >= 0) return false;
 		return true; // TODO
 	}
 	
 	private boolean wellFormed() {
-		return true; // TODO: Very simple: use the helper method
+		return inOrder(root,null,null);
+		//return true; // TODO: Very simple: use the helper method
 	}
 	
 	private Bank(boolean ignored) {} // do not change this
@@ -64,10 +95,21 @@ public class Bank {
 	 */
 	public Bank() {
 		// TODO (?)
+		root = null;
 		assert wellFormed() : "invariant broken in constructor";
 	}
 	
 	// TODO: helper method for open (optional) ?? is this my while loop??
+	private Node doOpen(Node r, Account a ) {
+//		if (r == null) return new Node(a, null, null);
+//		if (a.getID().compareTo(r.key.getID()) > 0)
+//			r.left = doOpen(r.left, a);
+//		else if (a.getID().compareTo(r.key.getID()) == 0)
+//			a.getID().concat(random.nextInt(10));
+//		else
+//			r.right = doOpen(r.right, a);
+		return r;
+	}
 	
 	/**
 	 * Open a new account with the given minimum balance (negative credit limit) and 
@@ -79,10 +121,12 @@ public class Bank {
 	 * @return new account
 	 */
 	public Account open(String owner, String prefix, Money minBalance, Money initial) {
-		while (prefix.length() < Account.MIN_ACCOUNT_ID || this.)
+		while (prefix.length() < Account.MIN_ACCOUNT_ID)
 			prefix += random.nextInt(10);
 		
 		Account a = new Account(owner, prefix, minBalance, initial);
+		doOpen(root, a);
+		
 		return a; // TODO (And don't forget the invariant)
 	}
 		
