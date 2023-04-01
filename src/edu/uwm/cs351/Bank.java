@@ -146,8 +146,10 @@ public class Bank {
 		r.left = doOpen(r.left, owner, prefix, minBalance, initial);
 			
 		
-		if (prefix.compareTo(r.key.getID()) == 0)
-			prefix += random.nextInt(10);
+		if (prefix.compareTo(r.key.getID()) == 0) {
+			prefix += String.valueOf(random.nextInt(10));
+		}
+			
 		else if (prefix.compareTo(r.key.getID()) < 0) {
 			Account a = new Account(owner, prefix, minBalance, initial);
 			return new Node(a, null, null);
