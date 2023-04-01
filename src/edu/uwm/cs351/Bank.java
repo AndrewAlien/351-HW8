@@ -54,6 +54,7 @@ public class Bank {
 	
 	// TODO: data structure.  (very simple)
 	Node root;
+	
 	private final Random random = new Random(); // ignore in invariant -- it doesn't change)
 	
 	/**
@@ -71,28 +72,37 @@ public class Bank {
 		if (tree.key == null) return report("not working and pissing me off");
 
 		
-		if (tree.left != null)
-			if (tree.key.getID().compareTo(tree.left.key.getID()) >= 0) return report("fuck me :)");
-		
-		if (tree.right != null)
-			if (tree.key.getID().compareTo(tree.right.key.getID()) >= 0) return report("fuck me :)");
-		
-		
-		
-		//what the fuck am i doing someone slit my fi=ucming throat plz thx
-		
-		
-		inOrder(tree.left, null, tree.key.getID());
-		
-		System.out.println(tree.key.getID());
-		
-		inOrder(tree.right, tree.key.getID(), null);
-		
-//		inOrder(tree.left, null, null);
+//		if (tree.left != null)
+//			if (tree.key.getID().compareTo(tree.left.key.getID()) >= 0) return report("fuck me :)");
 //		
+//		if (tree.right != null)
+//			if (tree.key.getID().compareTo(tree.right.key.getID()) >= 0) return report("fuck me :)");
 //		
+//		            
 //
-//		inOrder(tree.right, null, null);
+//		inOrder(tree.left, null, tree.key.getID());
+//		
+////		if (tree.key != null)
+////			if (tree.key.getID().compareTo(after) >= 0) return report("i still hate my life");
+//
+//		System.out.println(tree.key.getID());
+//
+//		inOrder(tree.right, tree.key.getID(), null);
+		
+		
+		//if (tree.left != null)
+		inOrder(tree.left, before, after);
+		
+		if (tree.key == null) return report("just special case my way to victory fuck this assignment");
+		
+		
+		if (before != null)
+			if (tree.key.getID().compareTo(before) <= 0) return report("still wanna die :)");
+
+		if (after != null)
+			if (tree.key.getID().compareTo(after) >= 0) return report("still wanna die :)");
+
+		inOrder(tree.right, before, after);
 
 		
 		//if (tree.key.getID().compareTo(tree.right.key.getID()) >= 0) return false;
@@ -116,7 +126,7 @@ public class Bank {
 	}
 	
 	// TODO: helper method for open (optional) ?? is this my while loop??
-	private Node doOpen(Node r, Account a ) {
+	private Node doOpen(Node r, String owner, String prefix, Money minBalance, Money initial) {
 //		if (r == null) return new Node(a, null, null);
 //		if (a.getID().compareTo(r.key.getID()) > 0)
 //			r.left = doOpen(r.left, a);
@@ -124,7 +134,40 @@ public class Bank {
 //			a.getID().concat(random.nextInt(10));
 //		else
 //			r.right = doOpen(r.right, a);
-		return r;
+//		return r;
+		
+		
+		if (r == null) {
+			Account a = new Account(owner, prefix, minBalance, initial);
+			return new Node(a, null, null);
+		}
+		
+		if (r.left != null)
+		r.left = doOpen(r.left, owner, prefix, minBalance, initial);
+			
+		
+		if (prefix.compareTo(r.key.getID()) == 0)
+			prefix += random.nextInt(10);
+		else if (prefix.compareTo(r.key.getID()) < 0) {
+			Account a = new Account(owner, prefix, minBalance, initial);
+			return new Node(a, null, null);
+		}
+		
+		if (r.right != null)
+		r.right = doOpen(r.right, owner, prefix, minBalance, initial);
+			
+		
+//		if (prefix.compareTo(r.key.getID()) > 0)
+//			
+//		else if (a.getID().compareTo(r.key.getID()) == 0)
+//			a.getID().concat(random.nextInt(10));
+//		else
+//			r.right = doOpen(r.right, a);
+		//return r;
+		
+		
+		Account a = new Account(owner, prefix, minBalance, initial);
+		return new Node(a, null, null);
 	}
 	
 	/**
@@ -140,8 +183,9 @@ public class Bank {
 		while (prefix.length() < Account.MIN_ACCOUNT_ID)
 			prefix += random.nextInt(10);
 		
-		Account a = new Account(owner, prefix, minBalance, initial);
-		doOpen(root, a);
+//		Account a = new Account(owner, prefix, minBalance, initial);
+		Account a = doOpen(root, owner, prefix, minBalance, initial).key;
+		//doOpen (root,a);
 		
 		return a; // TODO (And don't forget the invariant)
 	}
