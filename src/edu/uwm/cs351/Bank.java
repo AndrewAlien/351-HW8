@@ -1,3 +1,4 @@
+//Andrew Lien
 package edu.uwm.cs351;
 
 import java.util.Random;
@@ -139,7 +140,8 @@ public class Bank {
 		
 		if (r == null) {
 			Account a = new Account(owner, prefix, minBalance, initial);
-			return new Node(a, null, null);
+			root = new Node(a,null,null);
+			return root;
 		}
 		
 		if (r.left != null)
@@ -206,6 +208,8 @@ public class Bank {
 		// TODO: call the helper with the root,
 		// ignoring the result since there's nothing more to do anyway.
 		// And don't forget the invariant.
+		
+		//a.examine(root.key);
 	}
 	
 	// Do not change anything in the Spy class
