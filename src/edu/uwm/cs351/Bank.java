@@ -70,21 +70,21 @@ public class Bank {
 	private boolean inOrder(Node tree, String before, String after) {
 		if (tree == null) return true;
 		
-		if (tree.key == null) return report("not working and pissing me off");
+		if (tree.key == null) return report("not working");
 
 		
 //		if (tree.left != null)
-//			if (tree.key.getID().compareTo(tree.left.key.getID()) >= 0) return report("fuck me :)");
+//			if (tree.key.getID().compareTo(tree.left.key.getID()) >= 0) return report("");
 //		
 //		if (tree.right != null)
-//			if (tree.key.getID().compareTo(tree.right.key.getID()) >= 0) return report("fuck me :)");
+//			if (tree.key.getID().compareTo(tree.right.key.getID()) >= 0) return report(")");
 //		
 //		            
 //
 //		inOrder(tree.left, null, tree.key.getID());
 //		
 ////		if (tree.key != null)
-////			if (tree.key.getID().compareTo(after) >= 0) return report("i still hate my life");
+////			if (tree.key.getID().compareTo(after) >= 0) return report("i");
 //
 //		System.out.println(tree.key.getID());
 //
@@ -98,10 +98,10 @@ public class Bank {
 		
 		
 		if (before != null)
-			if (tree.key.getID().compareTo(before) <= 0) return report("still wanna die :)");
+			if (tree.key.getID().compareTo(before) <= 0) return report("itwrong");
 
 		if (after != null)
-			if (tree.key.getID().compareTo(after) >= 0) return report("still wanna die :)");
+			if (tree.key.getID().compareTo(after) >= 0) return report("its wrong");
 
 		inOrder(tree.right, before, after);
 
@@ -196,6 +196,11 @@ public class Bank {
 		
 	// TODO: Define a recursive helper method for "audit" that
 	// returns a boolean whether to continue or not.
+	private Boolean doAudit(Node r, Auditor a) {
+		a.examine(r.key);
+		return true;
+		
+	}
 	
 	
 	/**
@@ -209,6 +214,7 @@ public class Bank {
 		// ignoring the result since there's nothing more to do anyway.
 		// And don't forget the invariant.
 		
+		doAudit(root,a);
 		//a.examine(root.key);
 	}
 	
