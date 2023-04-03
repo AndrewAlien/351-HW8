@@ -70,7 +70,7 @@ public class Bank {
 	private boolean inOrder(Node tree, String before, String after) {
 		if (tree == null) return true;
 		
-		if (tree.key == null) return report("not working");
+		//if (tree.key == null) return report("not working");
 
 		
 //		if (tree.left != null)
@@ -90,11 +90,12 @@ public class Bank {
 //
 //		inOrder(tree.right, tree.key.getID(), null);
 		
+		Boolean broke;
 		
-		//if (tree.left != null)
-		inOrder(tree.left, before, after);
-		
-		if (tree.key == null) return report("just special case my way to victory fuck this assignment");
+		broke = inOrder(tree.left, before, after);
+		if (!broke)
+			return false;
+		if (tree.key == null) return report("null account in bank tree");
 		
 		
 		if (before != null)
@@ -103,10 +104,12 @@ public class Bank {
 		if (after != null)
 			if (tree.key.getID().compareTo(after) >= 0) return report("its wrong");
 
-		inOrder(tree.right, before, after);
-
+		broke = inOrder(tree.right, before, after);
+		if (!broke)
+			return false;
 		
 		//if (tree.key.getID().compareTo(tree.right.key.getID()) >= 0) return false;
+		
 		return true; // TODO
 	}
 	
@@ -128,14 +131,6 @@ public class Bank {
 	
 	// TODO: helper method for open (optional) ?? is this my while loop??
 	private Node doOpen(Node r, String owner, String prefix, Money minBalance, Money initial) {
-//		if (r == null) return new Node(a, null, null);
-//		if (a.getID().compareTo(r.key.getID()) > 0)
-//			r.left = doOpen(r.left, a);
-//		else if (a.getID().compareTo(r.key.getID()) == 0)
-//			a.getID().concat(random.nextInt(10));
-//		else
-//			r.right = doOpen(r.right, a);
-//		return r;
 		
 		
 		if (r == null) {
@@ -159,15 +154,6 @@ public class Bank {
 		
 		if (r.right != null)
 		r.right = doOpen(r.right, owner, prefix, minBalance, initial);
-			
-		
-//		if (prefix.compareTo(r.key.getID()) > 0)
-//			
-//		else if (a.getID().compareTo(r.key.getID()) == 0)
-//			a.getID().concat(random.nextInt(10));
-//		else
-//			r.right = doOpen(r.right, a);
-		//return r;
 		
 		
 		Account a = new Account(owner, prefix, minBalance, initial);
@@ -197,6 +183,7 @@ public class Bank {
 	// TODO: Define a recursive helper method for "audit" that
 	// returns a boolean whether to continue or not.
 	private Boolean doAudit(Node r, Auditor a) {
+		if (r == null) return false;
 		a.examine(r.key);
 		return true;
 		
